@@ -6,6 +6,8 @@
 #include "emf_sensor.h"
 
 // WiFi Configuration
+// IMPORTANT: Update these credentials before uploading
+// Or store in a separate config file not committed to version control
 const char* ssid = "YOUR_WIFI_SSID";
 const char* password = "YOUR_WIFI_PASSWORD";
 

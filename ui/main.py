@@ -79,7 +79,8 @@ class ConnectionManager:
         for connection in self.active_connections:
             try:
                 await connection.send_json(message)
-            except:
+            except (WebSocketDisconnect, Exception) as e:
+                # Connection may have closed, will be cleaned up on next iteration
                 pass
 
 manager = ConnectionManager()

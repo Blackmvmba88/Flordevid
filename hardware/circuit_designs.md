@@ -254,8 +254,8 @@ For a permanent installation, design a PCB with:
 ## References
 
 - ESP32 Datasheet: [espressif.com](https://www.espressif.com/en/products/socs/esp32)
-- LM358 Datasheet: Texas Instruments
-- Op-Amp Design Guide: Analog Devices
+- LM358 Datasheet: [Texas Instruments](https://www.ti.com/product/LM358)
+- Op-Amp Design Guide: [Analog Devices](https://www.analog.com/en/design-center/design-tools-and-calculators/op-amp-basics.html)
 
 ## License
 
