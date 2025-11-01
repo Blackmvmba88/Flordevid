@@ -1,258 +1,258 @@
-# Flordevid Hardware
+# Hardware Flordevid
 
-Hardware documentation, circuit designs, and assembly instructions for the Flordevid environmental signal monitoring device.
+Documentación de hardware, diseños de circuitos e instrucciones de ensamblaje para el dispositivo de monitoreo de señales ambientales Flordevid.
 
-## Contents
+## Contenidos
 
-- [circuit_designs.md](circuit_designs.md) - Complete circuit schematics and component specifications
-- Bill of Materials (BOM)
-- Assembly instructions
-- Testing procedures
+- [circuit_designs.md](circuit_designs.md) - Esquemas de circuitos completos y especificaciones de componentes
+- Lista de Materiales (BOM)
+- Instrucciones de ensamblaje
+- Procedimientos de prueba
 
-## Hardware Overview
+## Descripción General del Hardware
 
-The Flordevid device is built around an ESP32 microcontroller with custom analog front-end circuits for signal conditioning.
+El dispositivo Flordevid está construido alrededor de un microcontrolador ESP32 con circuitos front-end analógicos personalizados para acondicionamiento de señal.
 
-### Key Components
+### Componentes Clave
 
-1. **ESP32-DevKitC**: Main processing unit
-   - WiFi/Bluetooth connectivity
-   - Dual-core processor
-   - 12-bit ADC inputs
-   - USB programming interface
+1. **ESP32-DevKitC**: Unidad de procesamiento principal
+   - Conectividad WiFi/Bluetooth
+   - Procesador de doble núcleo
+   - Entradas ADC de 12 bits
+   - Interfaz de programación USB
 
-2. **Audio Sensor Circuit**
-   - Electret or MEMS microphone
-   - Amplification stage (LM358 op-amp)
-   - Gain: ~20 dB
-   - Bandwidth: 20 Hz - 20 kHz
+2. **Circuito de Sensor de Audio**
+   - Micrófono electret o MEMS
+   - Etapa de amplificación (op-amp LM358)
+   - Ganancia: ~20 dB
+   - Ancho de banda: 20 Hz - 20 kHz
 
-3. **EMF Sensor Circuit**
-   - Custom coil sensor (500-1000 turns)
-   - Two-stage amplification
-   - High input impedance
-   - Gain: ~20 dB
+3. **Circuito de Sensor EMF**
+   - Sensor de bobina personalizado (500-1000 vueltas)
+   - Amplificación de dos etapas
+   - Alta impedancia de entrada
+   - Ganancia: ~20 dB
 
-4. **Power Supply**
-   - 5V input (USB or battery)
-   - 3.3V regulation (AMS1117)
-   - Current capacity: 500mA+
+4. **Fuente de Alimentación**
+   - Entrada 5V (USB o batería)
+   - Regulación 3.3V (AMS1117)
+   - Capacidad de corriente: 500mA+
 
-## Quick Start
+## Inicio Rápido
 
-### Option 1: Breadboard Prototype
+### Opción 1: Prototipo en Protoboard
 
-1. Gather components (see BOM in circuit_designs.md)
-2. Follow breadboard layout
-3. Connect ESP32 pins:
-   - GPIO34 → Audio sensor output
-   - GPIO35 → EMF sensor output
-   - 3.3V → Power rail
-   - GND → Ground rail
-4. Upload firmware from `/firmware` folder
-5. Test with serial monitor
+1. Reunir componentes (ver BOM en circuit_designs.md)
+2. Seguir diseño de protoboard
+3. Conectar pines ESP32:
+   - GPIO34 → Salida sensor de audio
+   - GPIO35 → Salida sensor EMF
+   - 3.3V → Riel de alimentación
+   - GND → Riel de tierra
+4. Subir firmware desde carpeta `/firmware`
+5. Probar con monitor serial
 
-### Option 2: PCB Design
+### Opción 2: Diseño PCB
 
-1. Use provided schematics to design PCB
-2. Export Gerber files
-3. Order from PCB manufacturer
-4. Assemble components
-5. Test and program
+1. Usar esquemas proporcionados para diseñar PCB
+2. Exportar archivos Gerber
+3. Pedir a fabricante de PCB
+4. Ensamblar componentes
+5. Probar y programar
 
-## Pin Assignments
+## Asignación de Pines
 
-| ESP32 Pin | Function | Connection |
+| Pin ESP32 | Función | Conexión |
 |-----------|----------|------------|
-| GPIO34 | ADC1_CH6 | Audio sensor output |
-| GPIO35 | ADC1_CH7 | EMF sensor output |
-| 3.3V | Power | Sensor VCC, op-amp power |
-| GND | Ground | Common ground |
-| GPIO2 | LED | Built-in LED (optional indicator) |
+| GPIO34 | ADC1_CH6 | Salida sensor de audio |
+| GPIO35 | ADC1_CH7 | Salida sensor EMF |
+| 3.3V | Alimentación | VCC sensor, alimentación op-amp |
+| GND | Tierra | Tierra común |
+| GPIO2 | LED | LED incorporado (indicador opcional) |
 
-## Sensor Specifications
+## Especificaciones de Sensores
 
-### Audio Sensor
-- **Type**: Electret or MEMS
-- **Sensitivity**: -38 to -44 dB
-- **Frequency range**: 20 Hz - 20 kHz
-- **Supply voltage**: 2.0 - 3.6V
-- **Output**: Analog voltage (0-3.3V)
+### Sensor de Audio
+- **Tipo**: Electret o MEMS
+- **Sensibilidad**: -38 a -44 dB
+- **Rango de frecuencia**: 20 Hz - 20 kHz
+- **Voltaje de alimentación**: 2.0 - 3.6V
+- **Salida**: Voltaje analógico (0-3.3V)
 
-### EMF Sensor
-- **Type**: Inductive coil
-- **Inductance**: ~50-100 mH
-- **Frequency range**: 50 Hz - 10 kHz
-- **Sensitivity**: Detects nearby electromagnetic fields
-- **Output**: Analog voltage (0-3.3V)
+### Sensor EMF
+- **Tipo**: Bobina inductiva
+- **Inductancia**: ~50-100 mH
+- **Rango de frecuencia**: 50 Hz - 10 kHz
+- **Sensibilidad**: Detecta campos electromagnéticos cercanos
+- **Salida**: Voltaje analógico (0-3.3V)
 
-## Assembly Guide
+## Guía de Ensamblaje
 
-### Step-by-Step Instructions
+### Instrucciones Paso a Paso
 
-1. **Prepare workspace**
-   - Clear, well-lit area
-   - Anti-static mat (recommended)
-   - Soldering iron and supplies
+1. **Preparar espacio de trabajo**
+   - Área limpia y bien iluminada
+   - Tapete antiestático (recomendado)
+   - Soldador y suministros
 
-2. **Build power supply**
-   - Solder voltage regulator circuit
-   - Test output voltage (should be 3.3V)
+2. **Construir fuente de alimentación**
+   - Soldar circuito regulador de voltaje
+   - Probar voltaje de salida (debe ser 3.3V)
 
-3. **Build audio circuit**
-   - Solder op-amp circuit
-   - Connect microphone
-   - Test with audio input
+3. **Construir circuito de audio**
+   - Soldar circuito op-amp
+   - Conectar micrófono
+   - Probar con entrada de audio
 
-4. **Build EMF circuit**
-   - Wind coil (if DIY)
-   - Solder two-stage amplifier
-   - Test with magnet or phone
+4. **Construir circuito EMF**
+   - Bobinar bobina (si es DIY)
+   - Soldar amplificador de dos etapas
+   - Probar con imán o teléfono
 
-5. **Connect to ESP32**
-   - Wire audio output to GPIO34
-   - Wire EMF output to GPIO35
-   - Connect power and ground
+5. **Conectar a ESP32**
+   - Cablear salida de audio a GPIO34
+   - Cablear salida EMF a GPIO35
+   - Conectar alimentación y tierra
 
-6. **Final assembly**
-   - Secure components
-   - Add enclosure (optional)
-   - Label connectors
+6. **Ensamblaje final**
+   - Asegurar componentes
+   - Agregar caja (opcional)
+   - Etiquetar conectores
 
-## Testing
+## Pruebas
 
-### Initial Power-On Test
+### Prueba Inicial de Encendido
 ```bash
-# Check voltage levels
-3.3V rail: 3.2-3.4V ✓
-5V rail: 4.8-5.2V ✓
-Current draw: 80-250mA ✓
+# Verificar niveles de voltaje
+Riel 3.3V: 3.2-3.4V ✓
+Riel 5V: 4.8-5.2V ✓
+Consumo de corriente: 80-250mA ✓
 ```
 
-### Audio Test
+### Prueba de Audio
 ```bash
-# Upload test firmware
-# Speak near microphone
-# Observe serial output for voltage changes
-Expected: 0.5-2.5V varying with sound
+# Subir firmware de prueba
+# Hablar cerca del micrófono
+# Observar salida serial para cambios de voltaje
+Esperado: 0.5-2.5V variando con sonido
 ```
 
-### EMF Test
+### Prueba EMF
 ```bash
-# Upload test firmware
-# Move phone near EMF sensor
-# Observe serial output for voltage changes
-Expected: 0.3-2.0V varying with EMF source
+# Subir firmware de prueba
+# Mover teléfono cerca del sensor EMF
+# Observar salida serial para cambios de voltaje
+Esperado: 0.3-2.0V variando con fuente EMF
 ```
 
-## Troubleshooting
+## Solución de Problemas
 
-### Common Issues
+### Problemas Comunes
 
-**No power**
-- Check USB connection
-- Verify voltage regulator
-- Measure 3.3V output
+**Sin alimentación**
+- Verificar conexión USB
+- Verificar regulador de voltaje
+- Medir salida 3.3V
 
-**No audio readings**
-- Check microphone power
-- Verify GPIO34 connection
-- Test op-amp output
+**Sin lecturas de audio**
+- Verificar alimentación del micrófono
+- Verificar conexión GPIO34
+- Probar salida del op-amp
 
-**No EMF readings**
-- Check coil connections
-- Verify GPIO35 connection
-- Test with strong magnet
+**Sin lecturas EMF**
+- Verificar conexiones de bobina
+- Verificar conexión GPIO35
+- Probar con imán fuerte
 
-**Erratic readings**
-- Add decoupling capacitors
-- Improve ground connections
-- Check for loose wires
+**Lecturas erráticas**
+- Agregar condensadores de desacoplamiento
+- Mejorar conexiones de tierra
+- Verificar cables sueltos
 
-## Enclosure Design
+## Diseño de Caja
 
-### Recommended Enclosure Features
+### Características Recomendadas de Caja
 
-- Ventilation holes
-- Microphone opening (acoustic port)
-- EMF sensor positioning (external or window)
-- USB access port
-- LED indicators visible
-- Mounting points
+- Agujeros de ventilación
+- Abertura de micrófono (puerto acústico)
+- Posicionamiento del sensor EMF (externo o ventana)
+- Puerto de acceso USB
+- Indicadores LED visibles
+- Puntos de montaje
 
-### 3D Printable Case (Optional)
+### Caja Imprimible en 3D (Opcional)
 
-Design considerations:
-- Internal dimensions: 100mm x 80mm x 40mm
-- Wall thickness: 2-3mm
-- Mounting bosses for PCB
-- Cable management clips
+Consideraciones de diseño:
+- Dimensiones internas: 100mm x 80mm x 40mm
+- Espesor de pared: 2-3mm
+- Soportes de montaje para PCB
+- Clips de gestión de cables
 
-## Modifications and Extensions
+## Modificaciones y Extensiones
 
-### Add Display
-- Connect I2C OLED display to ESP32
-- Show real-time sensor values
-- Display anomaly alerts
+### Agregar Pantalla
+- Conectar pantalla OLED I2C a ESP32
+- Mostrar valores de sensores en tiempo real
+- Mostrar alertas de anomalías
 
-### Add More Sensors
-- Temperature sensor (DHT22, BME280)
-- Vibration sensor (SW-420)
-- Light sensor (LDR, BH1750)
+### Agregar Más Sensores
+- Sensor de temperatura (DHT22, BME280)
+- Sensor de vibración (SW-420)
+- Sensor de luz (LDR, BH1750)
 
-### Improve Sensitivity
-- Use precision op-amps (OPA2134)
-- Add programmable gain amplifiers
-- Implement hardware filtering
+### Mejorar Sensibilidad
+- Usar op-amps de precisión (OPA2134)
+- Agregar amplificadores de ganancia programable
+- Implementar filtrado de hardware
 
-## Maintenance
+## Mantenimiento
 
-### Regular Checks
-- Clean microphone opening
-- Check battery voltage (if battery-powered)
-- Verify WiFi connectivity
-- Update firmware as needed
+### Verificaciones Regulares
+- Limpiar abertura del micrófono
+- Verificar voltaje de batería (si funciona con batería)
+- Verificar conectividad WiFi
+- Actualizar firmware según sea necesario
 
-### Calibration
-- Record baseline values in quiet environment
-- Adjust thresholds in firmware
-- Test with known EMF sources
+### Calibración
+- Registrar valores de línea base en entorno silencioso
+- Ajustar umbrales en firmware
+- Probar con fuentes EMF conocidas
 
-## Safety Notes
+## Notas de Seguridad
 
-- All components operate at safe voltages (< 5V)
-- Avoid short circuits
-- Use proper polarity when connecting power
-- Handle ESP32 with anti-static precautions
-- Do not expose to water or extreme temperatures
+- Todos los componentes operan a voltajes seguros (< 5V)
+- Evitar cortocircuitos
+- Usar polaridad adecuada al conectar alimentación
+- Manejar ESP32 con precauciones antiestáticas
+- No exponer a agua o temperaturas extremas
 
-## Resources
+## Recursos
 
-### Datasheets
+### Hojas de Datos
 - ESP32: https://www.espressif.com/en/products/socs/esp32
 - LM358: Texas Instruments
 - AMS1117: Advanced Monolithic Systems
 
-### Tools
-- Soldering iron
-- Multimeter
-- Oscilloscope (optional, for debugging)
-- Wire strippers
-- Flush cutters
+### Herramientas
+- Soldador
+- Multímetro
+- Osciloscopio (opcional, para depuración)
+- Pelacables
+- Cortadores al ras
 
-### Suppliers
-- ESP32 boards: AliExpress, Amazon, Adafruit
-- Electronic components: Digi-Key, Mouser, LCSC
-- PCB fabrication: JLCPCB, PCBWay, OSH Park
+### Proveedores
+- Placas ESP32: AliExpress, Amazon, Adafruit
+- Componentes electrónicos: Digi-Key, Mouser, LCSC
+- Fabricación PCB: JLCPCB, PCBWay, OSH Park
 
-## Contributing
+## Contribuir
 
-Improvements to hardware designs are welcome! Please submit:
-- Circuit improvements
-- PCB layouts
-- 3D printable enclosure designs
-- Alternative component suggestions
+¡Las mejoras a los diseños de hardware son bienvenidas! Por favor envía:
+- Mejoras de circuitos
+- Diseños de PCB
+- Diseños de cajas imprimibles en 3D
+- Sugerencias de componentes alternativos
 
-## License
+## Licencia
 
-MIT License - Hardware designs are open source
+Licencia MIT - Los diseños de hardware son de código abierto

@@ -1,52 +1,52 @@
-# Flordevid Dashboard
+# Panel Flordevid
 
-FastAPI-based web dashboard for real-time monitoring and visualization of environmental sensor data.
+Panel web basado en FastAPI para monitoreo y visualización en tiempo real de datos de sensores ambientales.
 
-## Features
+## Características
 
-- **Real-time Monitoring**: Live sensor data updates via WebSocket
-- **Anomaly Alerts**: Visual alerts when anomalies are detected
-- **System Status**: Monitor uptime, connection count, and readings
-- **REST API**: Programmatic access to sensor data and system status
-- **Responsive Design**: Modern, gradient-themed UI
+- **Monitoreo en Tiempo Real**: Actualizaciones de datos de sensores en vivo vía WebSocket
+- **Alertas de Anomalías**: Alertas visuales cuando se detectan anomalías
+- **Estado del Sistema**: Monitorear tiempo de actividad, conteo de conexiones y lecturas
+- **API REST**: Acceso programático a datos de sensores y estado del sistema
+- **Diseño Responsivo**: Interfaz moderna con tema de gradiente
 
-## Installation
+## Instalación
 
-1. Create virtual environment:
+1. Crear entorno virtual:
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # En Windows: venv\Scripts\activate
 ```
 
-2. Install dependencies:
+2. Instalar dependencias:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Running the Dashboard
+## Ejecutar el Panel
 
-### Development Mode
+### Modo Desarrollo
 
 ```bash
 uvicorn main:app --reload
 ```
 
-### Production Mode
+### Modo Producción
 
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
 ```
 
-Access the dashboard at: `http://localhost:8000`
+Acceder al panel en: `http://localhost:8000`
 
-## API Endpoints
+## Endpoints API
 
-### REST API
+### API REST
 
 #### GET `/api/status`
-Get system status information
+Obtener información del estado del sistema
 
-**Response:**
+**Respuesta:**
 ```json
 {
   "status": "running",
@@ -57,9 +57,9 @@ Get system status information
 ```
 
 #### GET `/api/sensors/data`
-Get latest sensor readings
+Obtener últimas lecturas de sensores
 
-**Response:**
+**Respuesta:**
 ```json
 {
   "timestamp": 1234567890.123,
@@ -71,16 +71,16 @@ Get latest sensor readings
 ```
 
 #### GET `/api/anomalies`
-Get recent anomaly history
+Obtener historial reciente de anomalías
 
-**Response:**
+**Respuesta:**
 ```json
 {
   "anomalies": [
     {
       "timestamp": 1234567890.123,
       "confidence": 0.87,
-      "anomaly_class": "spike",
+      "anomaly_class": "pico",
       "audio_peak": 1.523,
       "emf_avg": 2.145
     }
@@ -89,24 +89,24 @@ Get recent anomaly history
 ```
 
 #### POST `/api/analyze`
-Trigger manual analysis
+Activar análisis manual
 
-**Response:**
+**Respuesta:**
 ```json
 {
-  "status": "Analysis triggered",
+  "status": "Análisis activado",
   "timestamp": 1234567890.123
 }
 ```
 
-### WebSocket API
+### API WebSocket
 
 #### WS `/ws/stream`
-Real-time data streaming endpoint
+Endpoint de transmisión de datos en tiempo real
 
-**Message Types:**
+**Tipos de Mensajes:**
 
-1. **Sensor Reading**
+1. **Lectura de Sensor**
 ```json
 {
   "type": "sensor_reading",
@@ -120,21 +120,21 @@ Real-time data streaming endpoint
 }
 ```
 
-2. **Anomaly Alert**
+2. **Alerta de Anomalía**
 ```json
 {
   "type": "anomaly_alert",
   "data": {
     "timestamp": 1234567890.123,
     "confidence": 0.87,
-    "anomaly_class": "spike",
+    "anomaly_class": "pico",
     "audio_peak": 1.523,
     "emf_avg": 2.145
   }
 }
 ```
 
-3. **Status Update**
+3. **Actualización de Estado**
 ```json
 {
   "type": "status",
@@ -147,9 +147,9 @@ Real-time data streaming endpoint
 }
 ```
 
-## Integration with AI Core
+## Integración con Núcleo IA
 
-To integrate with the AI Core module:
+Para integrar con el módulo Núcleo IA:
 
 ```python
 import sys
@@ -157,19 +157,19 @@ sys.path.append('../ai_core')
 
 from main import FlordovidAICore
 
-# Initialize AI Core
+# Inicializar Núcleo IA
 ai_core = FlordovidAICore(serial_port='/dev/ttyUSB0')
 
-# Process data and send to dashboard
+# Procesar datos y enviar al panel
 async def process_and_broadcast():
     sensor_data = ai_core.read_sensor_data()
     result = ai_core.process_data(sensor_data)
     
-    # Update system state
+    # Actualizar estado del sistema
     system_state['latest_reading'] = sensor_data
     system_state['total_readings'] += 1
     
-    # Broadcast to connected clients
+    # Transmitir a clientes conectados
     await manager.broadcast({
         'type': 'sensor_reading',
         'data': sensor_data
@@ -182,53 +182,53 @@ async def process_and_broadcast():
         })
 ```
 
-## Dashboard Features
+## Características del Panel
 
-### Real-time Display
+### Visualización en Tiempo Real
 
-- **System Status**: Online status, uptime, total readings, connected clients
-- **Audio Sensor**: Peak and RMS levels in volts
-- **EMF Sensor**: Average and peak levels in volts
-- **Anomaly Alerts**: Recent anomalies with confidence scores and timestamps
+- **Estado del Sistema**: Estado en línea, tiempo de actividad, lecturas totales, clientes conectados
+- **Sensor de Audio**: Niveles pico y RMS en voltios
+- **Sensor EMF**: Niveles promedio y pico en voltios
+- **Alertas de Anomalías**: Anomalías recientes con puntajes de confianza y marcas de tiempo
 
-### Visual Design
+### Diseño Visual
 
-- Gradient purple background
-- Glass-morphism cards with backdrop blur
-- Color-coded status indicators:
-  - Green: Normal/Online
-  - Yellow: Warning
-  - Red: Alert/Anomaly
+- Fondo de gradiente púrpura
+- Tarjetas glass-morphism con desenfoque de fondo
+- Indicadores de estado codificados por color:
+  - Verde: Normal/En línea
+  - Amarillo: Advertencia
+  - Rojo: Alerta/Anomalía
 
-## Testing
+## Pruebas
 
-### Using curl
+### Usando curl
 
 ```bash
-# Get status
+# Obtener estado
 curl http://localhost:8000/api/status
 
-# Get sensor data
+# Obtener datos de sensores
 curl http://localhost:8000/api/sensors/data
 
-# Trigger analysis
+# Activar análisis
 curl -X POST http://localhost:8000/api/analyze
 ```
 
-### Using WebSocket client
+### Usando cliente WebSocket
 
 ```javascript
 const ws = new WebSocket('ws://localhost:8000/ws/stream');
 
 ws.onmessage = (event) => {
     const data = JSON.parse(event.data);
-    console.log('Received:', data);
+    console.log('Recibido:', data);
 };
 ```
 
-## Deployment
+## Despliegue
 
-### Using Docker
+### Usando Docker
 
 ```dockerfile
 FROM python:3.9-slim
@@ -242,13 +242,13 @@ COPY . .
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-### Using systemd
+### Usando systemd
 
-Create `/etc/systemd/system/flordevid-dashboard.service`:
+Crear `/etc/systemd/system/flordevid-dashboard.service`:
 
 ```ini
 [Unit]
-Description=Flordevid Dashboard
+Description=Panel Flordevid
 After=network.target
 
 [Service]
@@ -262,26 +262,26 @@ ExecStart=/opt/flordevid/ui/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
 WantedBy=multi-user.target
 ```
 
-## Customization
+## Personalización
 
-### Changing Update Intervals
+### Cambiar Intervalos de Actualización
 
-Edit `main.py`:
+Editar `main.py`:
 
 ```python
-# Sensor data update interval
-await asyncio.sleep(1)  # Change to desired interval
+# Intervalo de actualización de datos de sensores
+await asyncio.sleep(1)  # Cambiar al intervalo deseado
 
-# Status update interval (in JavaScript)
+# Intervalo de actualización de estado (en JavaScript)
 setInterval(() => {
     fetch('/api/status')...
-}, 5000);  // Change to desired interval in ms
+}, 5000);  // Cambiar al intervalo deseado en ms
 ```
 
-### Styling
+### Estilos
 
-Modify the `<style>` section in the HTML template within `main.py` to customize colors, fonts, and layout.
+Modificar la sección `<style>` en la plantilla HTML dentro de `main.py` para personalizar colores, fuentes y diseño.
 
-## License
+## Licencia
 
-MIT License - See LICENSE file in root directory
+Licencia MIT - Ver archivo LICENSE en el directorio raíz

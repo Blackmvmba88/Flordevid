@@ -1,6 +1,6 @@
 """
-Flordevid Dashboard - FastAPI Backend
-Real-time monitoring and visualization
+Panel Flordevid - Backend FastAPI
+Monitoreo y visualización en tiempo real
 """
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
@@ -14,14 +14,14 @@ import time
 from datetime import datetime
 from pydantic import BaseModel
 
-# Create FastAPI app
+# Crear aplicación FastAPI
 app = FastAPI(
-    title="Flordevid Dashboard",
-    description="Real-time environmental signal monitoring and anomaly detection",
+    title="Panel Flordevid",
+    description="Monitoreo de señales ambientales en tiempo real y detección de anomalías",
     version="1.0.0"
 )
 
-# CORS middleware
+# Middleware CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

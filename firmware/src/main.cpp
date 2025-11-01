@@ -5,30 +5,30 @@
 #include "audio_capture.h"
 #include "emf_sensor.h"
 
-// WiFi Configuration
-// IMPORTANT: Update these credentials before uploading
-// Or store in a separate config file not committed to version control
+// Configuración WiFi
+// IMPORTANTE: Actualizar estas credenciales antes de subir
+// O almacenar en un archivo de configuración separado no confirmado en control de versiones
 const char* ssid = "YOUR_WIFI_SSID";
 const char* password = "YOUR_WIFI_PASSWORD";
 
-// Web Server
+// Servidor Web
 WebServer server(80);
 
-// Sensor instances
+// Instancias de sensores
 AudioCapture audioCapture;
 EMFSensor emfSensor;
 
-// Data buffer
+// Buffer de datos
 const int BUFFER_SIZE = 512;
 float audioBuffer[BUFFER_SIZE];
 float emfBuffer[BUFFER_SIZE];
 
-// Timing
+// Temporización
 unsigned long lastSensorRead = 0;
-const unsigned long SENSOR_INTERVAL = 100; // Read every 100ms
+const unsigned long SENSOR_INTERVAL = 100; // Leer cada 100ms
 
 void setupWiFi() {
-  Serial.println("Connecting to WiFi...");
+  Serial.println("Conectando a WiFi...");
   WiFi.begin(ssid, password);
   
   int attempts = 0;
@@ -97,44 +97,44 @@ void handleNotFound() {
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("\n\nFlordevid - Environmental Signal Monitor");
-  Serial.println("========================================");
+  Serial.println("\n\nFlordevid - Monitor de Señales Ambientales");
+  Serial.println("==========================================");
   
-  // Initialize sensors
-  Serial.println("Initializing sensors...");
+  // Inicializar sensores
+  Serial.println("Inicializando sensores...");
   audioCapture.begin();
   emfSensor.begin();
   
-  // Setup WiFi
+  // Configurar WiFi
   setupWiFi();
   
-  // Setup web server
+  // Configurar servidor web
   server.on("/", handleRoot);
   server.on("/status", handleStatus);
   server.on("/data", handleData);
   server.onNotFound(handleNotFound);
   server.begin();
-  Serial.println("HTTP server started");
+  Serial.println("Servidor HTTP iniciado");
   
-  Serial.println("System ready!");
+  Serial.println("Sistema listo!");
 }
 
 void loop() {
-  // Handle web requests
+  // Manejar solicitudes web
   server.handleClient();
   
-  // Read sensors at interval
+  // Leer sensores en intervalo
   unsigned long currentMillis = millis();
   if (currentMillis - lastSensorRead >= SENSOR_INTERVAL) {
     lastSensorRead = currentMillis;
     
-    // Capture audio samples
+    // Capturar muestras de audio
     audioCapture.read(audioBuffer, BUFFER_SIZE);
     
-    // Read EMF sensor
+    // Leer sensor EMF
     emfSensor.read(emfBuffer, BUFFER_SIZE);
     
-    // Send data over serial in JSON format
+    // Enviar datos por serial en formato JSON
     StaticJsonDocument<512> doc;
     doc["timestamp"] = currentMillis;
     doc["audio_peak"] = audioCapture.getPeakLevel();
@@ -146,6 +146,6 @@ void loop() {
     Serial.println();
   }
   
-  // Small delay to prevent watchdog issues
+  // Pequeño retardo para prevenir problemas de watchdog
   delay(1);
 }

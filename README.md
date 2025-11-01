@@ -1,137 +1,137 @@
 # Flordevid
 
-A modular mechatronic device for recording, amplifying, and analyzing environmental signals to detect anomalous patterns. The system combines ESP32-based firmware for multi-sensor data acquisition, analog amplification circuits, and AI-powered pattern recognition using TensorFlow Lite.
+Dispositivo mecatrónico modular para registrar, amplificar y analizar señales ambientales para detectar patrones anómalos. El sistema combina firmware basado en ESP32 para adquisición de datos multi-sensor, circuitos de amplificación analógica y reconocimiento de patrones impulsado por IA usando TensorFlow Lite.
 
-## 🚀 Features
+## 🚀 Características
 
-- **Multi-Sensor Data Acquisition**: Audio and EMF (electromagnetic field) sensing via ESP32
-- **Signal Amplification**: Custom analog circuits for weak signal amplification
-- **AI-Powered Analysis**: TensorFlow Lite models for real-time anomaly classification
-- **Web Dashboard**: FastAPI-based interface for monitoring and visualization
-- **Modular Design**: Organized architecture for easy extension and maintenance
+- **Adquisición de Datos Multi-Sensor**: Detección de audio y EMF (campo electromagnético) vía ESP32
+- **Amplificación de Señal**: Circuitos analógicos personalizados para amplificación de señales débiles
+- **Análisis Impulsado por IA**: Modelos TensorFlow Lite para clasificación de anomalías en tiempo real
+- **Panel Web**: Interfaz basada en FastAPI para monitoreo y visualización
+- **Diseño Modular**: Arquitectura organizada para fácil extensión y mantenimiento
 
-## 📁 Project Structure
+## 📁 Estructura del Proyecto
 
 ```
 Flordevid/
-├── firmware/          # ESP32 firmware for sensor data capture
-├── ai_core/           # Python backend with TensorFlow Lite for classification
-├── hardware/          # Circuit schematics and hardware documentation
-├── docs/              # Technical documentation and guides
-├── ui/                # FastAPI dashboard and web interface
-├── README.md          # This file
-├── LICENSE            # MIT License
-└── .gitignore        # Git ignore rules
+├── firmware/          # Firmware ESP32 para captura de datos de sensores
+├── ai_core/           # Backend Python con TensorFlow Lite para clasificación
+├── hardware/          # Esquemas de circuitos y documentación de hardware
+├── docs/              # Documentación técnica y guías
+├── ui/                # Panel FastAPI e interfaz web
+├── README.md          # Este archivo
+├── LICENSE            # Licencia MIT
+└── .gitignore        # Reglas de ignore de Git
 ```
 
-## 🔧 Hardware Requirements
+## 🔧 Requisitos de Hardware
 
-- ESP32 development board (ESP32-DevKitC or similar)
-- Microphone/audio sensor (e.g., MAX4466, INMP441)
-- EMF sensor (e.g., AD8232, custom coil sensor)
-- Operational amplifiers for signal conditioning
-- Power supply (5V/3.3V)
-- Additional components (see `hardware/` folder)
+- Placa de desarrollo ESP32 (ESP32-DevKitC o similar)
+- Micrófono/sensor de audio (ej. MAX4466, INMP441)
+- Sensor EMF (ej. AD8232, sensor de bobina personalizado)
+- Amplificadores operacionales para acondicionamiento de señal
+- Fuente de alimentación (5V/3.3V)
+- Componentes adicionales (ver carpeta `hardware/`)
 
-## 📦 Software Requirements
+## 📦 Requisitos de Software
 
 ### Firmware (ESP32)
-- PlatformIO or Arduino IDE
-- ESP32 board support package
+- PlatformIO o Arduino IDE
+- Paquete de soporte para placa ESP32
 
-### AI Core (Python)
+### Núcleo IA (Python)
 - Python 3.8+
 - TensorFlow Lite
 - NumPy, SciPy
-- See `ai_core/requirements.txt`
+- Ver `ai_core/requirements.txt`
 
-### Dashboard (FastAPI)
+### Panel (FastAPI)
 - Python 3.8+
 - FastAPI
 - Uvicorn
-- See `ui/requirements.txt`
+- Ver `ui/requirements.txt`
 
-## 🚀 Quick Start
+## 🚀 Inicio Rápido
 
-### 1. Flash ESP32 Firmware
+### 1. Flashear Firmware ESP32
 ```bash
 cd firmware
-# Using PlatformIO
+# Usando PlatformIO
 pio run --target upload
 ```
 
-### 2. Set Up AI Core
+### 2. Configurar Núcleo IA
 ```bash
 cd ai_core
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # En Windows: venv\Scripts\activate
 pip install -r requirements.txt
 python main.py
 ```
 
-### 3. Launch Dashboard
+### 3. Lanzar Panel
 ```bash
 cd ui
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # En Windows: venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-Access the dashboard at `http://localhost:8000`
+Accede al panel en `http://localhost:8000`
 
-## 📖 Documentation
+## 📖 Documentación
 
-Detailed documentation is available in the `docs/` folder:
-- [Hardware Setup Guide](docs/hardware_setup.md)
-- [Firmware Guide](docs/firmware_guide.md)
-- [AI Model Training](docs/ai_training.md)
-- [API Documentation](docs/api_reference.md)
+Documentación detallada disponible en la carpeta `docs/`:
+- [Guía de Configuración de Hardware](docs/hardware_setup.md)
+- [Guía de Firmware](docs/firmware_guide.md)
+- [Entrenamiento de Modelo IA](docs/ai_training.md)
+- [Documentación de API](docs/api_reference.md)
 
-## 🤖 AI Model
+## 🤖 Modelo IA
 
-The system uses TensorFlow Lite for efficient edge inference:
-- Real-time signal classification
-- Anomaly pattern detection
-- Low-latency processing
-- Support for custom model training
+El sistema usa TensorFlow Lite para inferencia eficiente en el borde:
+- Clasificación de señales en tiempo real
+- Detección de patrones anómalos
+- Procesamiento de baja latencia
+- Soporte para entrenamiento de modelos personalizados
 
-## 🔌 API Endpoints
+## 🔌 Endpoints API
 
-Key FastAPI endpoints:
-- `GET /api/status` - System status
-- `GET /api/sensors/data` - Latest sensor readings
-- `POST /api/analyze` - Trigger analysis
-- `WebSocket /ws/stream` - Real-time data streaming
+Endpoints FastAPI principales:
+- `GET /api/status` - Estado del sistema
+- `GET /api/sensors/data` - Últimas lecturas de sensores
+- `POST /api/analyze` - Activar análisis
+- `WebSocket /ws/stream` - Transmisión de datos en tiempo real
 
-## 🛠️ Development
+## 🛠️ Desarrollo
 
-### Testing
+### Pruebas
 ```bash
-# Test AI core
+# Probar núcleo IA
 cd ai_core
 pytest tests/
 
-# Test API
+# Probar API
 cd ui
 pytest tests/
 ```
 
-### Building Custom Models
-See `docs/ai_training.md` for instructions on training custom TensorFlow Lite models.
+### Construir Modelos Personalizados
+Ver `docs/ai_training.md` para instrucciones sobre el entrenamiento de modelos TensorFlow Lite personalizados.
 
-## 📄 License
+## 📄 Licencia
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
 
-## 🤝 Contributing
+## 🤝 Contribuir
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+¡Las contribuciones son bienvenidas! Por favor, no dudes en enviar un Pull Request.
 
-## 📧 Contact
+## 📧 Contacto
 
-For questions or support, please open an issue on GitHub.
+Para preguntas o soporte, por favor abre un issue en GitHub.
 
 ---
 
-**Note**: This device is designed for environmental signal monitoring and anomaly detection. Ensure compliance with local regulations regarding electromagnetic monitoring equipment.
+**Nota**: Este dispositivo está diseñado para monitoreo de señales ambientales y detección de anomalías. Asegúrese de cumplir con las regulaciones locales con respecto a equipos de monitoreo electromagnético.

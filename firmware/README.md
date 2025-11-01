@@ -1,89 +1,89 @@
-# Flordevid Firmware
+# Firmware Flordevid
 
-ESP32 firmware for multi-sensor data acquisition supporting audio and EMF (electromagnetic field) sensing.
+Firmware ESP32 para adquisición de datos multi-sensor compatible con detección de audio y EMF (campo electromagnético).
 
-## Features
+## Características
 
-- **Audio Capture**: 8kHz sampling rate with peak and RMS level calculation
-- **EMF Sensing**: Continuous electromagnetic field monitoring
-- **WiFi Connectivity**: Real-time data streaming over WiFi
-- **HTTP API**: RESTful endpoints for sensor data access
-- **Serial Output**: JSON-formatted data output for direct connection
+- **Captura de Audio**: Tasa de muestreo de 8kHz con cálculo de niveles pico y RMS
+- **Detección EMF**: Monitoreo continuo de campo electromagnético
+- **Conectividad WiFi**: Transmisión de datos en tiempo real por WiFi
+- **API HTTP**: Endpoints RESTful para acceso a datos de sensores
+- **Salida Serial**: Salida de datos en formato JSON para conexión directa
 
-## Hardware Connections
+## Conexiones de Hardware
 
-### Audio Sensor
+### Sensor de Audio
 - **Pin**: GPIO34 (ADC1_CH6)
-- **Sensor**: MAX4466 or INMP441 microphone module
-- **Connection**: Analog output to GPIO34
+- **Sensor**: Módulo de micrófono MAX4466 o INMP441
+- **Conexión**: Salida analógica a GPIO34
 
-### EMF Sensor
+### Sensor EMF
 - **Pin**: GPIO35 (ADC1_CH7)
-- **Sensor**: Custom coil with amplifier or AD8232
-- **Connection**: Analog output to GPIO35
+- **Sensor**: Bobina personalizada con amplificador o AD8232
+- **Conexión**: Salida analógica a GPIO35
 
-### Power
-- **VCC**: 5V via USB or 3.3V regulated
-- **GND**: Common ground for all components
+### Alimentación
+- **VCC**: 5V vía USB o 3.3V regulado
+- **GND**: Tierra común para todos los componentes
 
-## Building and Flashing
+## Compilación y Flasheo
 
-### Using PlatformIO (Recommended)
+### Usando PlatformIO (Recomendado)
 
-1. Install PlatformIO:
+1. Instalar PlatformIO:
 ```bash
 pip install platformio
 ```
 
-2. Build the firmware:
+2. Compilar el firmware:
 ```bash
 cd firmware
 pio run
 ```
 
-3. Upload to ESP32:
+3. Subir a ESP32:
 ```bash
 pio run --target upload
 ```
 
-4. Monitor serial output:
+4. Monitorear salida serial:
 ```bash
 pio device monitor
 ```
 
-### Using Arduino IDE
+### Usando Arduino IDE
 
-1. Install ESP32 board support
-2. Open `src/main.cpp` in Arduino IDE
-3. Select board: "ESP32 Dev Module"
-4. Select correct COM port
-5. Upload
+1. Instalar soporte para placa ESP32
+2. Abrir `src/main.cpp` en Arduino IDE
+3. Seleccionar placa: "ESP32 Dev Module"
+4. Seleccionar puerto COM correcto
+5. Subir
 
-## Configuration
+## Configuración
 
-Edit `src/main.cpp` to configure:
+Editar `src/main.cpp` para configurar:
 
 ```cpp
-// WiFi credentials
-const char* ssid = "YOUR_WIFI_SSID";
-const char* password = "YOUR_WIFI_PASSWORD";
+// Credenciales WiFi
+const char* ssid = "TU_SSID_WIFI";
+const char* password = "TU_CONTRASEÑA_WIFI";
 
-// Sampling parameters
+// Parámetros de muestreo
 const int BUFFER_SIZE = 512;
 const unsigned long SENSOR_INTERVAL = 100; // ms
 ```
 
-## API Endpoints
+## Endpoints API
 
-Once connected to WiFi, access:
+Una vez conectado a WiFi, acceder a:
 
-- `http://<ESP32_IP>/` - Home page
-- `http://<ESP32_IP>/status` - System status
-- `http://<ESP32_IP>/data` - Current sensor data
+- `http://<IP_ESP32>/` - Página de inicio
+- `http://<IP_ESP32>/status` - Estado del sistema
+- `http://<IP_ESP32>/data` - Datos actuales de sensores
 
-## Serial Protocol
+## Protocolo Serial
 
-Data is output in JSON format at 115200 baud:
+Los datos se envían en formato JSON a 115200 baudios:
 
 ```json
 {
@@ -95,28 +95,28 @@ Data is output in JSON format at 115200 baud:
 }
 ```
 
-## Troubleshooting
+## Solución de Problemas
 
-### No WiFi connection
-- Verify SSID and password
-- Check signal strength
-- The device will continue in standalone mode
+### Sin conexión WiFi
+- Verificar SSID y contraseña
+- Verificar intensidad de señal
+- El dispositivo continuará en modo independiente
 
-### No sensor readings
-- Check GPIO pin connections
-- Verify sensor power supply
-- Check serial monitor for initialization messages
+### Sin lecturas de sensores
+- Verificar conexiones de pines GPIO
+- Verificar fuente de alimentación del sensor
+- Verificar monitor serial para mensajes de inicialización
 
-### Compilation errors
-- Ensure all dependencies are installed
-- Update PlatformIO platform: `pio platform update`
+### Errores de compilación
+- Asegurarse de que todas las dependencias estén instaladas
+- Actualizar plataforma PlatformIO: `pio platform update`
 
-## Dependencies
+## Dependencias
 
-- ESP32 Arduino Framework
+- Framework Arduino ESP32
 - ArduinoJson (^6.21.0)
-- arduinoFFT (^1.6.0) - For future FFT analysis
+- arduinoFFT (^1.6.0) - Para análisis FFT futuro
 
-## License
+## Licencia
 
-MIT License - See LICENSE file in root directory
+Licencia MIT - Ver archivo LICENSE en el directorio raíz

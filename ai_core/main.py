@@ -1,6 +1,6 @@
 """
-Flordevid AI Core - Main Entry Point
-Real-time signal processing and anomaly detection
+Núcleo IA Flordevid - Punto de Entrada Principal
+Procesamiento de señales en tiempo real y detección de anomalías
 """
 
 import sys
@@ -16,11 +16,11 @@ from signal_analyzer import SignalAnalyzer
 class FlordovidAICore:
     def __init__(self, serial_port=None, model_path='models/anomaly_model.tflite'):
         """
-        Initialize AI Core system
+        Inicializar sistema Núcleo IA
         
         Args:
-            serial_port: Serial port for ESP32 connection (e.g., '/dev/ttyUSB0' or 'COM3')
-            model_path: Path to TensorFlow Lite model
+            serial_port: Puerto serial para conexión ESP32 (ej. '/dev/ttyUSB0' o 'COM3')
+            model_path: Ruta al modelo TensorFlow Lite
         """
         self.serial_port = serial_port
         self.serial_conn = None

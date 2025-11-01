@@ -1,106 +1,106 @@
-# Flordevid Project Summary
+# Resumen del Proyecto Flordevid
 
-## Overview
-Complete modular mechatronic device for environmental signal monitoring and anomaly detection.
+## Descripción General
+Dispositivo mecatrónico modular completo para monitoreo de señales ambientales y detección de anomalías.
 
-## Components Implemented
+## Componentes Implementados
 
 ### 1. Firmware (ESP32) ✓
-- **Location**: `/firmware/`
-- **Features**:
-  - Audio capture via GPIO34 (8kHz sampling)
-  - EMF sensor via GPIO35
-  - WiFi connectivity with web server
-  - JSON data output over serial (115200 baud)
-  - Modular sensor classes (audio_capture.h, emf_sensor.h)
-- **Build System**: PlatformIO
-- **Documentation**: firmware/README.md
+- **Ubicación**: `/firmware/`
+- **Características**:
+  - Captura de audio vía GPIO34 (muestreo 8kHz)
+  - Sensor EMF vía GPIO35
+  - Conectividad WiFi con servidor web
+  - Salida de datos JSON por serial (115200 baud)
+  - Clases de sensores modulares (audio_capture.h, emf_sensor.h)
+- **Sistema de Compilación**: PlatformIO
+- **Documentación**: firmware/README.md
 
-### 2. AI Core (Python + TensorFlow Lite) ✓
-- **Location**: `/ai_core/`
-- **Modules**:
-  - `main.py`: Entry point and orchestration
-  - `data_processor.py`: Feature extraction (10 features)
-  - `signal_analyzer.py`: Signal analysis and pattern detection
-  - `anomaly_detector.py`: TFLite inference with rule-based fallback
-  - `train_model.py`: Model training script
-- **Classes**: Normal, Spike, Sustained, Oscillating
-- **Documentation**: ai_core/README.md
+### 2. Núcleo IA (Python + TensorFlow Lite) ✓
+- **Ubicación**: `/ai_core/`
+- **Módulos**:
+  - `main.py`: Punto de entrada y orquestación
+  - `data_processor.py`: Extracción de características (10 características)
+  - `signal_analyzer.py`: Análisis de señales y detección de patrones
+  - `anomaly_detector.py`: Inferencia TFLite con respaldo basado en reglas
+  - `train_model.py`: Script de entrenamiento de modelo
+- **Clases**: Normal, Pico, Sostenido, Oscilante
+- **Documentación**: ai_core/README.md
 
-### 3. Hardware Documentation ✓
-- **Location**: `/hardware/`
-- **Contents**:
-  - Circuit schematics (audio & EMF amplification)
-  - Bill of Materials (BOM)
-  - Component specifications
-  - Assembly instructions
-  - PCB design guidelines
-- **Documentation**: hardware/README.md, circuit_designs.md
+### 3. Documentación de Hardware ✓
+- **Ubicación**: `/hardware/`
+- **Contenidos**:
+  - Esquemas de circuitos (amplificación audio y EMF)
+  - Lista de Materiales (BOM)
+  - Especificaciones de componentes
+  - Instrucciones de ensamblaje
+  - Guías de diseño PCB
+- **Documentación**: hardware/README.md, circuit_designs.md
 
-### 4. UI Dashboard (FastAPI) ✓
-- **Location**: `/ui/`
-- **Features**:
-  - Real-time WebSocket streaming
-  - REST API endpoints (status, data, anomalies)
-  - Embedded HTML dashboard with glass-morphism design
-  - Live sensor readings display
-  - Anomaly alert system
-- **Tech Stack**: FastAPI, Uvicorn, WebSockets
-- **Documentation**: ui/README.md
+### 4. Panel UI (FastAPI) ✓
+- **Ubicación**: `/ui/`
+- **Características**:
+  - Transmisión WebSocket en tiempo real
+  - Endpoints REST API (estado, datos, anomalías)
+  - Panel HTML embebido con diseño glass-morphism
+  - Visualización de lecturas de sensores en vivo
+  - Sistema de alertas de anomalías
+- **Stack Tecnológico**: FastAPI, Uvicorn, WebSockets
+- **Documentación**: ui/README.md
 
-### 5. Documentation ✓
-- **Location**: `/docs/`
-- **Guides**:
-  - `hardware_setup.md`: Complete assembly guide
-  - `firmware_guide.md`: Firmware customization
-  - `ai_training.md`: ML model training
-  - `api_reference.md`: Complete API documentation
+### 5. Documentación ✓
+- **Ubicación**: `/docs/`
+- **Guías**:
+  - `hardware_setup.md`: Guía completa de ensamblaje
+  - `firmware_guide.md`: Personalización de firmware
+  - `ai_training.md`: Entrenamiento de modelo ML
+  - `api_reference.md`: Documentación completa de API
 
-## Project Structure
+## Estructura del Proyecto
 ```
 Flordevid/
-├── firmware/          # ESP32 C++ code
+├── firmware/          # Código C++ ESP32
 │   ├── src/
 │   ├── include/
 │   └── platformio.ini
-├── ai_core/           # Python ML backend
+├── ai_core/           # Backend ML Python
 │   ├── main.py
 │   ├── data_processor.py
 │   ├── signal_analyzer.py
 │   ├── anomaly_detector.py
 │   ├── train_model.py
 │   └── requirements.txt
-├── hardware/          # Schematics & BOM
+├── hardware/          # Esquemas y BOM
 │   ├── circuit_designs.md
 │   └── README.md
-├── docs/              # Technical documentation
+├── docs/              # Documentación técnica
 │   ├── hardware_setup.md
 │   ├── firmware_guide.md
 │   ├── ai_training.md
 │   └── api_reference.md
-├── ui/                # FastAPI dashboard
+├── ui/                # Panel FastAPI
 │   ├── main.py
 │   └── requirements.txt
-├── README.md          # Main project README
-├── LICENSE            # MIT License
-└── .gitignore        # Git ignore rules
+├── README.md          # README principal del proyecto
+├── LICENSE            # Licencia MIT
+└── .gitignore        # Reglas de ignore de Git
 ```
 
-## Quick Start
+## Inicio Rápido
 
-### 1. Build Hardware
+### 1. Construir Hardware
 ```bash
-# See hardware/circuit_designs.md for schematics
-# Assemble on breadboard or PCB
+# Ver hardware/circuit_designs.md para esquemas
+# Ensamblar en protoboard o PCB
 ```
 
-### 2. Flash Firmware
+### 2. Flashear Firmware
 ```bash
 cd firmware
 pio run --target upload
 ```
 
-### 3. Run AI Core
+### 3. Ejecutar Núcleo IA
 ```bash
 cd ai_core
 python -m venv venv
@@ -109,56 +109,56 @@ pip install -r requirements.txt
 python main.py --port /dev/ttyUSB0
 ```
 
-### 4. Start Dashboard
+### 4. Iniciar Panel
 ```bash
 cd ui
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 uvicorn main:app --reload
-# Open http://localhost:8000
+# Abrir http://localhost:8000
 ```
 
-## Features
+## Características
 
-### Audio Sensing
-- 12-bit ADC resolution
-- Peak and RMS level calculation
-- ~8kHz sampling rate
-- Amplified signal conditioning
+### Detección de Audio
+- Resolución ADC de 12 bits
+- Cálculo de niveles pico y RMS
+- Tasa de muestreo ~8kHz
+- Acondicionamiento de señal amplificada
 
-### EMF Sensing
-- Custom coil sensor
-- High-impedance buffer
-- Two-stage amplification
-- DC to 10kHz range
+### Detección EMF
+- Sensor de bobina personalizado
+- Buffer de alta impedancia
+- Amplificación de dos etapas
+- Rango DC a 10kHz
 
-### AI Classification
-- 4-class anomaly detection
-- TensorFlow Lite inference
-- Rule-based fallback
-- Real-time processing
+### Clasificación IA
+- Detección de anomalías de 4 clases
+- Inferencia TensorFlow Lite
+- Respaldo basado en reglas
+- Procesamiento en tiempo real
 
-### Dashboard
-- Real-time WebSocket updates
-- REST API access
-- Responsive design
-- Anomaly alerts
+### Panel
+- Actualizaciones WebSocket en tiempo real
+- Acceso REST API
+- Diseño responsivo
+- Alertas de anomalías
 
-## Technology Stack
+## Stack Tecnológico
 
 ### Hardware
-- ESP32-DevKitC (Dual-core, WiFi)
-- LM358 Op-Amps
-- AMS1117-3.3 Regulator
-- Electret/MEMS microphone
-- Custom EMF coil
+- ESP32-DevKitC (Doble núcleo, WiFi)
+- Op-Amps LM358
+- Regulador AMS1117-3.3
+- Micrófono Electret/MEMS
+- Bobina EMF personalizada
 
 ### Firmware
-- C++ (Arduino framework)
+- C++ (framework Arduino)
 - PlatformIO
 - ArduinoJson
-- WiFi & WebServer libraries
+- Librerías WiFi y WebServer
 
 ### Backend
 - Python 3.8+
@@ -170,36 +170,36 @@ uvicorn main:app --reload
 - FastAPI
 - WebSockets
 - HTML5/CSS3/JavaScript
-- Responsive design
+- Diseño responsivo
 
-## Development Status
+## Estado de Desarrollo
 
-✅ Complete project structure
-✅ ESP32 firmware with dual sensors
-✅ Python AI core with TFLite
-✅ FastAPI dashboard with WebSocket
-✅ Hardware schematics and BOM
-✅ Comprehensive documentation
-✅ MIT License
-✅ .gitignore configured
-✅ All Python files syntax-verified
-✅ Dashboard tested and working
+✅ Estructura completa del proyecto
+✅ Firmware ESP32 con sensores duales
+✅ Núcleo IA Python con TFLite
+✅ Panel FastAPI con WebSocket
+✅ Esquemas de hardware y BOM
+✅ Documentación completa
+✅ Licencia MIT
+✅ .gitignore configurado
+✅ Todos los archivos Python verificados sintácticamente
+✅ Panel probado y funcionando
 
-## Next Steps (User-Driven)
+## Próximos Pasos (Dirigidos por el Usuario)
 
-1. **Build Hardware**: Assemble circuit on breadboard
-2. **Test Firmware**: Upload to ESP32 and verify sensors
-3. **Collect Data**: Gather training data for ML model
-4. **Train Model**: Run train_model.py with real data
-5. **Deploy**: Integrate all components
-6. **Customize**: Extend with additional features
+1. **Construir Hardware**: Ensamblar circuito en protoboard
+2. **Probar Firmware**: Subir a ESP32 y verificar sensores
+3. **Recolectar Datos**: Reunir datos de entrenamiento para modelo ML
+4. **Entrenar Modelo**: Ejecutar train_model.py con datos reales
+5. **Desplegar**: Integrar todos los componentes
+6. **Personalizar**: Extender con características adicionales
 
-## License
-MIT License - See LICENSE file
+## Licencia
+Licencia MIT - Ver archivo LICENSE
 
-## Contributors
+## Contribuidores
 - BlackMamba (Blackmvmba88)
 - GitHub Copilot
 
-## Repository
+## Repositorio
 https://github.com/Blackmvmba88/Flordevid

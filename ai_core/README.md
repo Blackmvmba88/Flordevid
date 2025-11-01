@@ -1,43 +1,43 @@
-# Flordevid AI Core
+# Núcleo IA Flordevid
 
-Python backend with TensorFlow Lite for real-time environmental signal classification and anomaly detection.
+Backend Python con TensorFlow Lite para clasificación de señales ambientales en tiempo real y detección de anomalías.
 
-## Features
+## Características
 
-- **Real-time Processing**: Process sensor data streams from ESP32
-- **TensorFlow Lite**: Efficient edge inference with quantized models
-- **Feature Extraction**: Statistical and spectral feature computation
-- **Anomaly Detection**: Multi-class classification (normal, spike, sustained, oscillating)
-- **Signal Analysis**: SNR calculation, pattern detection, digital filtering
+- **Procesamiento en Tiempo Real**: Procesar flujos de datos de sensores desde ESP32
+- **TensorFlow Lite**: Inferencia eficiente en el borde con modelos cuantizados
+- **Extracción de Características**: Cálculo de características estadísticas y espectrales
+- **Detección de Anomalías**: Clasificación multi-clase (normal, pico, sostenido, oscilante)
+- **Análisis de Señales**: Cálculo SNR, detección de patrones, filtrado digital
 
-## Installation
+## Instalación
 
-1. Create virtual environment:
+1. Crear entorno virtual:
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # En Windows: venv\Scripts\activate
 ```
 
-2. Install dependencies:
+2. Instalar dependencias:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+## Uso
 
-### Train Model
+### Entrenar Modelo
 
-Generate and train a TensorFlow Lite model:
+Generar y entrenar un modelo TensorFlow Lite:
 
 ```bash
 python train_model.py
 ```
 
-This creates `models/anomaly_model.tflite` with a trained classifier.
+Esto crea `models/anomaly_model.tflite` con un clasificador entrenado.
 
-### Run AI Core
+### Ejecutar Núcleo IA
 
-Process data from ESP32 via serial:
+Procesar datos desde ESP32 vía serial:
 
 ```bash
 # Linux/Mac
@@ -46,158 +46,158 @@ python main.py --port /dev/ttyUSB0
 # Windows
 python main.py --port COM3
 
-# Test mode (no serial connection)
+# Modo de prueba (sin conexión serial)
 python main.py
 ```
 
-Optional arguments:
-- `--port`: Serial port for ESP32 connection
-- `--duration`: Run duration in seconds (default: infinite)
-- `--model`: Path to TFLite model (default: models/anomaly_model.tflite)
+Argumentos opcionales:
+- `--port`: Puerto serial para conexión ESP32
+- `--duration`: Duración de ejecución en segundos (por defecto: infinito)
+- `--model`: Ruta al modelo TFLite (por defecto: models/anomaly_model.tflite)
 
-### Example Output
+### Salida de Ejemplo
 
 ```
-Flordevid AI Core started
+Núcleo IA Flordevid iniciado
 ==================================================
-Connected to /dev/ttyUSB0
-✓ Normal operation | Audio: 0.125V | EMF: 0.543V
+Conectado a /dev/ttyUSB0
+✓ Operación normal | Audio: 0.125V | EMF: 0.543V
 
-⚠️  ANOMALY DETECTED at 1234567890
-   Confidence: 87.3%
-   Class: spike
-   Audio Peak: 1.523V
-   EMF Average: 0.621V
+⚠️  ANOMALÍA DETECTADA en 1234567890
+   Confianza: 87.3%
+   Clase: pico
+   Audio Pico: 1.523V
+   EMF Promedio: 0.621V
 ```
 
-## Architecture
+## Arquitectura
 
-### Data Flow
+### Flujo de Datos
 
 ```
-ESP32 Sensors → Serial/JSON → DataProcessor → Feature Extraction
+Sensores ESP32 → Serial/JSON → DataProcessor → Extracción de Características
                                                       ↓
                                             SignalAnalyzer
                                                       ↓
                                             AnomalyDetector (TFLite)
                                                       ↓
-                                            Results/Alerts
+                                            Resultados/Alertas
 ```
 
-### Modules
+### Módulos
 
-- **main.py**: Main entry point and orchestration
-- **data_processor.py**: Feature extraction and preprocessing
-- **signal_analyzer.py**: Signal analysis and pattern detection
-- **anomaly_detector.py**: TensorFlow Lite inference
-- **train_model.py**: Model training script
+- **main.py**: Punto de entrada y orquestación
+- **data_processor.py**: Extracción de características y preprocesamiento
+- **signal_analyzer.py**: Análisis de señales y detección de patrones
+- **anomaly_detector.py**: Inferencia TensorFlow Lite
+- **train_model.py**: Script de entrenamiento de modelo
 
-## Feature Engineering
+## Ingeniería de Características
 
-The system extracts 10 features per sample:
+El sistema extrae 10 características por muestra:
 
-1. **Instantaneous** (4 features):
-   - Audio peak level
-   - Audio RMS level
-   - EMF average level
-   - EMF peak level
+1. **Instantáneas** (4 características):
+   - Nivel pico de audio
+   - Nivel RMS de audio
+   - Nivel promedio EMF
+   - Nivel pico EMF
 
-2. **Temporal** (6 features, computed over last 5 samples):
-   - Audio mean, std, max
-   - EMF mean, std, max
+2. **Temporales** (6 características, calculadas sobre las últimas 5 muestras):
+   - Media, desviación estándar, máximo de audio
+   - Media, desviación estándar, máximo de EMF
 
-## Model Architecture
+## Arquitectura del Modelo
 
-Default model (trained by `train_model.py`):
+Modelo por defecto (entrenado por `train_model.py`):
 
 ```
-Input Layer: 10 features
+Capa de Entrada: 10 características
 Dense(32) + ReLU + Dropout(0.2)
 Dense(16) + ReLU
 Dense(4) + Softmax
-Output: 4 classes [normal, spike, sustained, oscillating]
+Salida: 4 clases [normal, pico, sostenido, oscilante]
 ```
 
-Optimized to TensorFlow Lite with quantization for edge deployment.
+Optimizado a TensorFlow Lite con cuantización para despliegue en el borde.
 
-## Classes
+## Clases
 
-- **Normal**: Baseline environmental signals
-- **Spike**: Sudden brief increase in signal levels
-- **Sustained**: Prolonged elevated signal levels
-- **Oscillating**: Rhythmic fluctuation pattern
+- **Normal**: Señales ambientales de línea base
+- **Pico**: Aumento súbito breve en niveles de señal
+- **Sostenido**: Niveles de señal elevados prolongados
+- **Oscilante**: Patrón de fluctuación rítmica
 
-## Customization
+## Personalización
 
-### Training with Real Data
+### Entrenar con Datos Reales
 
-Collect labeled data and modify `train_model.py`:
+Recolectar datos etiquetados y modificar `train_model.py`:
 
 ```python
-# Load your data
-X_train = np.load('your_features.npy')
-y_train = np.load('your_labels.npy')
+# Cargar tus datos
+X_train = np.load('tus_características.npy')
+y_train = np.load('tus_etiquetas.npy')
 
-# Train
+# Entrenar
 detector = AnomalyDetector()
 model, history = detector.train_model(X_train, y_train, epochs=100)
-detector.convert_to_tflite(model, 'models/custom_model.tflite')
+detector.convert_to_tflite(model, 'models/modelo_personalizado.tflite')
 ```
 
-### Adjusting Thresholds
+### Ajustar Umbrales
 
-Edit `signal_analyzer.py`:
+Editar `signal_analyzer.py`:
 
 ```python
-self.baseline_audio = 0.1  # Baseline audio level
-self.baseline_emf = 0.5    # Baseline EMF level
-self.threshold_multiplier = 3.0  # Anomaly threshold
+self.baseline_audio = 0.1  # Nivel de audio de línea base
+self.baseline_emf = 0.5    # Nivel EMF de línea base
+self.threshold_multiplier = 3.0  # Umbral de anomalía
 ```
 
-### Adding New Features
+### Agregar Nuevas Características
 
-Extend `data_processor.py`:
+Extender `data_processor.py`:
 
 ```python
 def extract_features(self, sensor_data):
-    # ... existing features ...
+    # ... características existentes ...
     
-    # Add custom feature
-    custom_feature = self.compute_custom_feature(sensor_data)
-    features.append(custom_feature)
+    # Agregar característica personalizada
+    caracteristica_personalizada = self.compute_custom_feature(sensor_data)
+    features.append(caracteristica_personalizada)
     
     return np.array(features)
 ```
 
-## Testing
+## Pruebas
 
-Run tests (if available):
+Ejecutar pruebas (si están disponibles):
 
 ```bash
 pytest tests/
 ```
 
-## Performance
+## Rendimiento
 
-- **Inference time**: < 5ms per sample on CPU
-- **Memory footprint**: ~500KB (TFLite model)
-- **Throughput**: 100+ samples/second
+- **Tiempo de inferencia**: < 5ms por muestra en CPU
+- **Huella de memoria**: ~500KB (modelo TFLite)
+- **Throughput**: 100+ muestras/segundo
 
-## Troubleshooting
+## Solución de Problemas
 
-### Model not found
-Run `python train_model.py` to generate the model.
+### Modelo no encontrado
+Ejecutar `python train_model.py` para generar el modelo.
 
-### Serial connection issues
-- Check port name (`ls /dev/tty*` on Linux)
-- Ensure ESP32 is connected and recognized
-- Verify baud rate (115200)
+### Problemas de conexión serial
+- Verificar nombre del puerto (`ls /dev/tty*` en Linux)
+- Asegurarse de que ESP32 esté conectado y reconocido
+- Verificar velocidad en baudios (115200)
 
-### Import errors
+### Errores de importación
 ```bash
 pip install --upgrade tensorflow numpy scipy
 ```
 
-## License
+## Licencia
 
-MIT License - See LICENSE file in root directory
+Licencia MIT - Ver archivo LICENSE en el directorio raíz
